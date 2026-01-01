@@ -1,0 +1,107 @@
+enterprise-rag-system/
+│
+├── README.md                          # Main project documentation
+├── LICENSE                            # MIT License
+├── .gitignore                        # Git ignore rules
+├── .env.example                      # Environment variables template
+├── requirements.txt                  # Python dependencies
+├── setup.py                          # Package setup
+├── docker-compose.yml                # Docker orchestration
+├── Dockerfile                        # Container definition
+│
+├── app/                              # Main application code
+│   ├── __init__.py
+│   ├── main.py                       # FastAPI application entry
+│   ├── config.py                     # Configuration management
+│   ├── models.py                     # Pydantic models
+│   │
+│   ├── core/                         # Core RAG components
+│   │   ├── __init__.py
+│   │   ├── ingestion.py             # Document ingestion
+│   │   ├── chunking.py              # Text chunking strategies
+│   │   ├── embedding.py             # Embedding generation
+│   │   ├── retrieval.py             # Hybrid search implementation
+│   │   ├── reranking.py             # Result re-ranking
+│   │   ├── compression.py           # Context compression
+│   │   └── generation.py            # Answer generation
+│   │
+│   ├── api/                          # API endpoints
+│   │   ├── __init__.py
+│   │   ├── routes/
+│   │   │   ├── __init__.py
+│   │   │   ├── query.py             # Query endpoint
+│   │   │   ├── ingest.py            # Ingestion endpoint
+│   │   │   └── health.py            # Health checks
+│   │   └── dependencies.py          # API dependencies
+│   │
+│   ├── services/                     # Business logic
+│   │   ├── __init__.py
+│   │   ├── rag_service.py           # RAG orchestration
+│   │   ├── cache_service.py         # Caching layer
+│   │   └── monitoring_service.py    # Observability
+│   │
+│   └── utils/                        # Utility functions
+│       ├── __init__.py
+│       ├── logging.py               # Logging setup
+│       ├── metrics.py               # Performance metrics
+│       └── validators.py            # Input validation
+│
+├── ui/                               # Streamlit interface
+│   ├── app.py                       # Main UI application
+│   ├── components/                  # UI components
+│   │   ├── query_interface.py
+│   │   ├── document_viewer.py
+│   │   └── metrics_dashboard.py
+│   └── styles/                      # CSS styling
+│       └── main.css
+│
+├── scripts/                          # Utility scripts
+│   ├── init_vectordb.py             # Initialize vector database
+│   ├── ingest.py                    # Document ingestion CLI
+│   ├── evaluate.py                  # Evaluation runner
+│   └── benchmark.py                 # Performance benchmarking
+│
+├── tests/                            # Test suite
+│   ├── __init__.py
+│   ├── conftest.py                  # Pytest configuration
+│   ├── unit/                        # Unit tests
+│   │   ├── test_chunking.py
+│   │   ├── test_retrieval.py
+│   │   └── test_generation.py
+│   ├── integration/                 # Integration tests
+│   │   └── test_rag_pipeline.py
+│   └── e2e/                         # End-to-end tests
+│       └── test_api.py
+│
+├── docs/                             # Documentation
+│   ├── README.md                    # Documentation index
+│   ├── architecture.md              # System architecture
+│   ├── configuration.md             # Configuration guide
+│   ├── deployment.md                # Deployment instructions
+│   ├── evaluation.md                # Evaluation methodology
+│   ├── api.md                       # API reference
+│   └── images/                      # Documentation images
+│       ├── architecture.png
+│       ├── demo.gif
+│       └── benchmark_results.png
+│
+├── data/                             # Data directory (gitignored)
+│   ├── documents/                   # Source documents
+│   ├── processed/                   # Processed chunks
+│   └── evaluation/                  # Test datasets
+│
+├── notebooks/                        # Jupyter notebooks
+│   ├── 01_exploration.ipynb        # Data exploration
+│   ├── 02_chunking_strategy.ipynb  # Chunking experiments
+│   ├── 03_retrieval_tuning.ipynb   # Retrieval optimization
+│   └── 04_evaluation.ipynb         # Evaluation analysis
+│
+└── deployment/                       # Deployment configurations
+    ├── kubernetes/                  # K8s manifests
+    │   ├── deployment.yaml
+    │   ├── service.yaml
+    │   └── ingress.yaml
+    ├── terraform/                   # Infrastructure as Code
+    │   └── main.tf
+    └── aws/                         # AWS-specific configs
+        └── cloudformation.yaml
