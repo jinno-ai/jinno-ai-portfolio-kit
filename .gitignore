@@ -89,3 +89,8 @@ Thumbs.db
 # Environment variables (added after push)
 .env
 .env.temp
+
+# BMAD Method
+_bmad-output/
+_bmad/
+.claude/commands/bmad/
