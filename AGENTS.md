@@ -1,11 +1,10 @@
 # AI Agent Operational Guide (AGENTS.md)
 
-This document outlines the environment setup and operational procedures for AI agents (like Jules) working within this repository. This repository is a **Portfolio Setup Kit** designed to automate the creation and deployment of multiple AI-focused repositories.
+This document outlines the environment setup and operational procedures for AI agents working within this repository. This repository is a **Portfolio Setup Kit** for managing AI-focused submodules.
 
 ## 1. Repository Overview
 
 The root repository contains automation scripts to manage a collection of submodules (portfolio projects).
-The goal is to support **autonomous development and operation** of these submodules.
 
 ### Key Components:
 - **Root**: Automation scripts (`.py`, `.sh`), documentation.
@@ -14,86 +13,98 @@ The goal is to support **autonomous development and operation** of these submodu
 ## 2. Environment Setup
 
 ### Prerequisites
-- **Python**: Version 3.8+ is required.
-- **Docker**: Required for running submodules like `enterprise-rag-system`.
-- **Git**: Configured for the user `jinno-ai`.
+- **Python**: Version 3.8+
+- **Docker**: Required for running submodules like `enterprise-rag-system`
+- **Git**: Configured for the user `jinno-ai`
+- **SSH**: GitHub SSH key configured (for git operations)
 
 ### Initial Configuration
-1.  **Install Dependencies**:
-    ```bash
-    pip install PyGithub python-dotenv
-    ```
-    *Note: `quick_start.sh` handles this automatically.*
+1. **Install Dependencies**:
+   ```bash
+   pip install PyGithub python-dotenv
+   ```
 
-2.  **Token Setup**:
-    - The repository requires a GitHub Personal Access Token (PAT).
-    - Tokens are managed via `.env` file (excluded from git).
-    - **Setup Script**:
-        ```bash
-        python3 setup_token.py
-        ```
-    - **Agent Instruction**: Do not create or overwrite `.env` unless explicitly instructed to reset credentials. Read environment variables from the environment or assume they are pre-loaded in the runtime if `.env` is absent but checking `.env` is standard procedure here.
+2. **Update Submodules**:
+   ```bash
+   git submodule update --init --recursive
+   ```
 
 ## 3. Operational Procedures
 
-### A. Initialization
-To set up the entire portfolio from scratch (idempotent):
-```bash
-bash quick_start.sh
-```
-This script:
-1.  Checks Python version.
-2.  Installs dependencies.
-3.  Runs `setup_token.py` (if `.env` missing).
-4.  Runs `create_repositories.py` to ensure remote repos exist.
+### A. Submodule Development
+Each submodule is a standalone project. When working on a submodule:
 
-### B. Deployment Cycle
-When changes are made to any submodule or the root:
-```bash
-bash auto_deploy_all.sh
-```
-This script:
-1.  Iterates through all defined repositories.
-2.  Pushes changes to GitHub.
-3.  **Automatically creates a Pull Request**.
-4.  **Automatically merges the PR** into `main`.
-5.  Deletes the feature branch.
-
-**Agent Rule**: When asked to "deploy" or "submit" changes to the remote, prefer using `auto_deploy_all.sh` over manual git commands to ensure the PR/Merge workflow is followed.
-
-### C. Submodule Development
-Each submodule is a standalone project. When working on a submodule (e.g., `enterprise-rag-system`):
-
-1.  **Navigate**: `cd enterprise-rag-system`
-2.  **Context**: Read the specific `README.md` and `docker-compose.yml` in that directory.
-3.  **Testing**:
-    - **Unit Tests**: `pytest` (if available in `tests/`).
-    - **Integration**: `docker-compose up -d` to spin up services.
-4.  **Verification**:
-    - Before declaring a task complete, verify the application starts (e.g., check `docker ps` or curl the API endpoint).
+1. **Navigate**: `cd enterprise-rag-system`
+2. **Context**: Read the specific `README.md` and `docker-compose.yml` in that directory.
+3. **Testing**:
+   - **Unit Tests**: `pytest` (if available in `tests/`)
+   - **Integration**: `docker-compose up -d` to spin up services
+4. **Verification**:
+   - Before declaring a task complete, verify the application starts (e.g., check `docker ps` or curl the API endpoint)
 
 **Example: `enterprise-rag-system`**
-- **Type**: FastAPI + Streamlit + Pinecone.
+- **Type**: FastAPI + Streamlit + Pinecone
 - **Run**: `docker-compose up -d`
-- **Verify**: Check `localhost:8000/docs` (API) and `localhost:8501` (UI).
+- **Verify**: Check `localhost:8000/docs` (API) and `localhost:8501` (UI)
+
+### B. Git Operations
+- **Manual workflow**: Use standard git commands with SSH
+  ```bash
+  git add .
+  git commit -m "message"
+  git push origin main
+  ```
+- **Feature branches**: Create branches for development
+  ```bash
+  git checkout -b feature/my-feature
+  ```
 
 ## 4. Agent Guidelines & Rules
 
-1.  **Verification is Mandatory**:
-    - Always verify file creations/edits with `read_file`.
-    - Always verify script execution results.
-2.  **Security**:
-    - **NEVER** commit `.env` or secrets.
-    - **NEVER** output full API keys in logs or conversation history.
-3.  **File System**:
-    - Do not modify `auto_deploy_all.sh` or `setup_token.py` unless the task specifically requests changing the *automation logic itself*.
-    - Focus development work inside the submodule directories.
-4.  **Git Operations**:
-    - The `auto_deploy_all.sh` script handles git commit/push/PR/merge.
-    - If manual git is required, ensure you are on a feature branch, not `main`.
+1. **Verification is Mandatory**:
+   - Always verify file creations/edits
+   - Always verify script execution results
+2. **Security**:
+   - **NEVER** commit `.env` or secrets
+   - **NEVER** output full API keys in logs
+3. **File System**:
+   - Focus development work inside the submodule directories
+4. **Git Operations**:
+   - Use SSH for git operations
+   - Ensure you're on the correct branch before committing
 
-## 5. Troubleshooting
+## 5. Submodules Overview
 
-- **Script Permission Denied**: Run `chmod +x *.sh`.
-- **Missing Dependencies**: Run `pip install -r requirements.txt`.
-- **Docker Failures**: Check `docker logs <container_name>`.
+| Submodule | Description | Tech Stack |
+|-----------|-------------|------------|
+| enterprise-rag-system | Production RAG pipeline | FastAPI, Streamlit, Pinecone |
+| llm-agent-framework | Multi-agent orchestration | LangGraph, LangChain |
+| micro-instruction-engineering | Prompt optimization | Python, LLM APIs |
+| multilingual-sentiment-analyzer | Cross-lingual sentiment | Transformers, PyTorch |
+| realtime-edge-detection | Low-latency object detection | OpenCV, TensorFlow |
+
+## 6. Common Commands
+
+```bash
+# Update all submodules
+git submodule update --remote --merge
+
+# Check submodule status
+git submodule status
+
+# Work in specific submodule
+cd enterprise-rag-system
+docker-compose up -d
+
+# Test Python packages
+cd llm-agent-framework
+pip install -r requirements.txt
+pytest tests/
+```
+
+## 7. Troubleshooting
+
+- **Submodule issues**: Run `git submodule update --init --recursive`
+- **Docker failures**: Check `docker logs <container_name>`
+- **Permission denied**: Run `chmod +x *.sh`
+- **Missing dependencies**: Run `pip install -r requirements.txt`
