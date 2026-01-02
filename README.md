@@ -10,9 +10,9 @@
 
 ### 📄 ドキュメント
 - **`README.md`** (このファイル) - 概要とクイックスタート
-- **`QUICKSTART.md`** - 30分で完成させるガイド
-- **`AUTOMATION_GUIDE.md`** - 完全自動化の詳細手順
-- **`IMPLEMENTATION_GUIDE.md`** - 段階的な実装ガイド
+- **`docs/QUICKSTART.md`** - 30分で完成させるガイド
+- **`docs/AUTOMATION_GUIDE.md`** - 完全自動化の詳細手順
+- **`docs/DEVELOPMENT_GUIDE.md`** - 開発ガイド
 
 ### 📝 テンプレートファイル
 - **`jinno-ai-profile-README.md`** - プロフィールREADME
@@ -50,8 +50,6 @@ bash auto_deploy_all.sh
 - ✅ mainブランチに自動マージ
 - ✅ developブランチを自動削除
 
-📖 **詳細:** [`IMPROVED_SETUP.md`](IMPROVED_SETUP.md) を参照
-
 ---
 
 ### 🤖 従来の方法: 手動セットアップ
@@ -67,7 +65,7 @@ python setup_token.py
 python create_repositories.py
 ```
 
-**詳細:** [`AUTOMATION_GUIDE.md`](AUTOMATION_GUIDE.md) を参照
+**詳細:** [`docs/AUTOMATION_GUIDE.md`](docs/AUTOMATION_GUIDE.md) を参照
 
 ---
 
@@ -75,7 +73,7 @@ python create_repositories.py
 
 **GitHubのWeb UIで手動作成する方法です。**
 
-ステップバイステップの手順は [`QUICKSTART.md`](QUICKSTART.md) を参照してください。
+ステップバイステップの手順は [`docs/QUICKSTART.md`](docs/QUICKSTART.md) を参照してください。
 
 ---
 
@@ -83,7 +81,7 @@ python create_repositories.py
 
 **じっくりと質の高いポートフォリオを構築する方法です。**
 
-詳細な実装計画は [`IMPLEMENTATION_GUIDE.md`](IMPLEMENTATION_GUIDE.md) を参照してください。
+詳細な実装計画は [`docs/DEVELOPMENT_GUIDE.md`](docs/DEVELOPMENT_GUIDE.md) を参照してください。
 
 ---
 
