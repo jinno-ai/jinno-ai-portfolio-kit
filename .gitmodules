@@ -1,0 +1,19 @@
+[submodule "enterprise-rag-system"]
+	path = enterprise-rag-system
+	url = https://github.com/jinno-ai/enterprise-rag-system
+
+[submodule "llm-agent-framework"]
+	path = llm-agent-framework
+	url = https://github.com/jinno-ai/llm-agent-framework
+
+[submodule "micro-instruction-engineering"]
+	path = micro-instruction-engineering
+	url = https://github.com/jinno-ai/micro-instruction-engineering
+
+[submodule "multilingual-sentiment-analyzer"]
+	path = multilingual-sentiment-analyzer
+	url = https://github.com/jinno-ai/multilingual-sentiment-analyzer
+
+[submodule "realtime-edge-detection"]
+	path = realtime-edge-detection
+	url = https://github.com/jinno-ai/realtime-edge-detection
